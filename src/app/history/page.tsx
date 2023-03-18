@@ -39,7 +39,7 @@ export default function Home() {
       ) : (
         <>
           <div className="md:w-[560px] h-full">
-            <p className=" font-imprima text-4xl my-5">Home</p>
+            <p className=" font-imprima text-4xl my-5">History</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {homeData.map((data, i) => (
                 <Card setSrc={setSrc} setShow={setShow} {...data} key={i} />
