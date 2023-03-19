@@ -1,52 +1,56 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
-
-import Card from "@/component/card/VideoCard";
-import { homeData } from "@/data/data";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
+import VideoPlay from "@/component/VideoPlay";
 
 export default function Home() {
-  const [show, setShow] = useState(false);
-  const [src, setSrc] = useState("");
+  const [search, setSearch] = useState("");
 
   return (
     <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
-      {show ? (
-        <div className=" flex w-full justify-between ">
-          <div className=" flex justify-center w-full relative">
-            <div
-              className={` absolute top-0 w-[830px] h-[450px] overflow-hidden cursor-pointer blur-3xl backdrop-blur-2xl`}
-              style={{
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                backgroundImage: `url(${src})`,
-              }}
-            ></div>
-            <div className=" relative w-[720px] h-[405px] overflow-hidden cursor-pointer mt-4 border border-black">
-              <Image
-                src={src}
-                style={{
-                  objectFit: "cover",
-                  zIndex: 0,
-                }}
-                fill
-                priority
-                alt={""}
-              />
-            </div>
+      {!search ? (
+        <div className=" w-[650px] flex flex-col gap-12 mt-5 items-center">
+          <p className=" font-imprima text-4xl text-white">
+            Auto Caption YouTube Videos
+          </p>
+          <div className=" flex w-full bg-[#404249c3] p-[6px] rounded-lg">
+            <input
+              type="text"
+              className=" w-full h-[60px] bg-[#131314] font-light focus:outline-none p-2 rounded-[3px]"
+            />
+            <button
+              className=" w-[120px] grid place-items-center cur"
+              onClick={() => setSearch("ffhgh")}
+            >
+              <p className=" text-lg">Start</p>
+            </button>
           </div>
-          <div className=" w-[150px] h-[calc(100vh-5rem)] "></div>
+          <p className=" font-semibold text-sm">
+            Login to see your encrypted History and Notes
+          </p>
+          <div className=" flex gap-[50px] items-center mt-2.5">
+            <Link href={"/history"}>
+              <div className=" flex items-center gap-[10px]">
+                <img src="/Activity.svg" alt="history" />
+                <p className=" font-semibold">History</p>
+              </div>
+            </Link>
+            <Link href={"/notes"}>
+              <div className=" flex items-center gap-[10px]">
+                <img src="/Paper.svg" alt="notes" />
+                <p className=" font-semibold">Notes</p>
+              </div>
+            </Link>
+          </div>
+          <img
+            src="/blur.svg"
+            className=" absolute top-5 z-[-10] left-[545.73px]"
+            alt=""
+          />
         </div>
       ) : (
-        <>
-          <div className="md:w-[560px] h-full">
-            <p className=" font-imprima text-4xl my-5">Home</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {homeData.map((data, i) => (
-                <Card setSrc={setSrc} setShow={setShow} {...data} key={i} />
-              ))}
-            </div>
-          </div>
-        </>
+        <VideoPlay setSearch={setSearch} link={"/"} />
       )}
     </div>
   );
