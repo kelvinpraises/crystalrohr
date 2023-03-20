@@ -5,7 +5,6 @@ interface ICardProps {
   src: string;
   title: string;
   creator: string;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
   setSrc: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -14,10 +13,7 @@ const Card = (card: ICardProps) => {
     <div className=" min-w-[270px] w-full  flex flex-col items-center rounded-2xl  bg-[#292621]">
       <div
         className=" relative w-full h-[170px] overflow-hidden rounded-t-2xl cursor-pointer"
-        onClick={() => {
-          card.setShow(true);
-          card.setSrc(card.src);
-        }}
+        onClick={() => card.setSrc("http./youtube")}
       >
         <Image
           src={card.src}

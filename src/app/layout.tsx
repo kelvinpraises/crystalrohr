@@ -19,18 +19,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [openSearchModal, setOpenSearchModal] = useState(false);
   return (
     <html className={`${imprima.variable} ${inter.className}`}>
       <head />
-      <body className=" bg-[#0B0B0C] text-[#ededed]">
-        <SearchModal
-          searchModal={openSearchModal}
-          setSearchModal={setOpenSearchModal}
-        />
-        <Header setOpenModal={setOpenSearchModal} />
+      <body className=" bg-[#020203] text-[#ededed]">
+        <Header />
         <div className=" mt-20 flex overflow-y-hidden">
-          <NavBar />
           <>{children}</>
         </div>
       </body>
