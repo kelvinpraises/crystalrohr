@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ICardProps {
   src: string;
@@ -9,8 +10,17 @@ interface ICardProps {
 }
 
 const Card = (card: ICardProps) => {
+  const router = useRouter();
+  const handleClick = () => {
+    // set state of link id
+    router.push("/watch");
+  };
+
   return (
-    <div className=" min-w-[270px] w-full  flex flex-col items-center rounded-2xl  bg-[#292621]">
+    <div
+      className=" min-w-[270px] w-full  flex flex-col items-center rounded-2xl  bg-[#292621]"
+      onClick={handleClick}
+    >
       <div
         className=" relative w-full h-[170px] overflow-hidden rounded-t-2xl cursor-pointer"
         onClick={() => card.setSrc("http./youtube")}
