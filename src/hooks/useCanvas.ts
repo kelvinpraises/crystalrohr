@@ -1,106 +1,40 @@
-import { useRef, useCallback, useState, useEffect } from 'react';
-import { Colour } from '../utils/colors';
+import { useCallback, useRef, useState } from "react";
+import { Colour } from "../utils/colors";
 
 const useCanvas = () => {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const [colors, setColors] = useState<{ r: number; g: number; b: number }[]>(
     []
   );
-  const [sessionHash, setSessionHash] = useState("");
+  const [intervalId, setIntervalId] = useState<any>();
+  // const [sessionHash, setSessionHash] = useState("");
 
-  useEffect(() => {
-    setSessionHash("") // uuid here
-  }, [setSessionHash])
+  // useEffect(() => {
+  //   setSessionHash(""); // uuid here
+  // }, [setSessionHash]);
 
-
-  const _setUpCanvas = (video: HTMLVideoElement) => {
-    let canvas = ref.current as HTMLCanvasElement;
-    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-
-    const w = video.videoWidth;
-    const h = video.videoHeight;
-
-    canvas.width = w;
-    canvas.height = h;
-
-    console.log(w, h);
-
-    // draw video image on canvas.
-    context.fillRect(0, 0, w, h);
-    context.drawImage(video, 0, 0, w, h);
-
-    return { canvas, context, w, h };
-  };
-
-  const _getAverageColor = (
-    context: CanvasRenderingContext2D,
-    w: number,
-    h: number
-  ) => {
-    const a = w * h;
-
-    const data = context.getImageData(0, 0, w, h).data;
-    let r = 0;
-    let g = 0;
-    let b = 0;
-
-    for (let i = 0; i < data.length; i += 4) {
-      r += data[i];
-      g += data[i + 1];
-      b += data[i + 2];
-    }
-
-    r = ~~(r / a);
-    g = ~~(g / a);
-    b = ~~(b / a);
-
-    return { r, g, b };
-  };
-
-  const _compareColorSimilariy = (
-    accumulatedColors: { r: number; g: number; b: number }[]
-  ) => {
-    let similar: boolean;
-    if (colors.length === 0) {
-      similar = false;
-      setColors([...accumulatedColors]);
-    } else {
-      const difference = colors.map((color1, i) => {
-        const color2 = accumulatedColors[i];
-
-        // convert RGB to LAB
-        const [L1, A1, B1] = Colour.rgba2lab(color1.r, color1.g, color1.b);
-        const [L2, A2, B2] = Colour.rgba2lab(color2.r, color2.g, color2.b);
-        const deltaE = Colour.deltaE00(L1, A1, B1, L2, A2, B2);
-
-        return deltaE;
-      });
-
-      const average = difference.reduce((a, b) => a + b, 0) / difference.length;
-
-      console.log(difference);
-      console.log(average);
-
-      if (average > 12) {
-        similar = false;
-      } else {
-        similar = true;
-      }
-
-      setColors([...accumulatedColors]);
-    }
-
-    return { similar };
-  };
-
-  const captureVideo = useCallback(
-    async (video: HTMLVideoElement, sliced: HTMLDivElement) => {
+  const autoCaption = useCallback(
+    async (
+      video: HTMLVideoElement,
+      audio: HTMLAudioElement,
+      sliced: HTMLDivElement
+    ) => {
       try {
-        const { canvas, context, w, h } = _setUpCanvas(video);
+        let canvas = ref.current as HTMLCanvasElement;
+        const context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-        // clone full image on canvas.
+        const w = video.videoWidth;
+        const h = video.videoHeight;
+        canvas.width = w;
+        canvas.height = h;
+
+        // Draw video image on canvas.
+        context.fillRect(0, 0, w, h);
+        context.drawImage(video, 0, 0, w, h);
+
+        // Clone image.
         const clone = canvas.cloneNode(true) as HTMLCanvasElement;
-        clone.getContext('2d')!.drawImage(canvas, 0, 0);
+        clone.getContext("2d")!.drawImage(canvas, 0, 0);
 
         const col = 8;
         const row = 4;
@@ -112,7 +46,7 @@ const useCanvas = () => {
           sliced.removeChild(sliced?.lastChild as ChildNode);
         }
 
-        // sub divide image.
+        // Divide image into blocks.
         for (var i = 0; i < row; i++) {
           for (var j = 0; j < col; j++) {
             canvas.width = colWidth;
@@ -131,44 +65,100 @@ const useCanvas = () => {
               rowHeight
             );
 
-            const { r, g, b } = _getAverageColor(context, colWidth, rowHeight);
+            const a = w * h;
+
+            // Get colors.
+            const data = context.getImageData(0, 0, w, h).data;
+            let r = 0;
+            let g = 0;
+            let b = 0;
+
+            for (let i = 0; i < data.length; i += 4) {
+              r += data[i];
+              g += data[i + 1];
+              b += data[i + 2];
+            }
+
+            r = ~~(r / a);
+            g = ~~(g / a);
+            b = ~~(b / a);
 
             accumulatedColors.push({ r, g, b });
 
-            sliced.style.width = w + 'px';
+            sliced.style.width = w + "px";
 
-            let cell = document.createElement('div');
-            cell.style.width = colWidth + 'px';
-            cell.style.height = rowHeight + 'px';
+            let cell = document.createElement("div");
+            cell.style.width = colWidth + "px";
+            cell.style.height = rowHeight + "px";
             cell.style.backgroundColor = `rgb(${r},${g},${b})`;
             sliced.appendChild(cell);
           }
         }
 
-        const similarity = _compareColorSimilariy(accumulatedColors);
+        // Check color similariy.
+        let similar: boolean;
 
+        if (colors.length === 0) {
+          similar = false;
+          setColors([...accumulatedColors]);
+        } else {
+          const difference = colors.map((color1, i) => {
+            const color2 = accumulatedColors[i];
 
-        console.log('Scene just changed? ', !similarity.similar);
+            // convert RGB to LAB
+            const [L1, A1, B1] = Colour.rgba2lab(color1.r, color1.g, color1.b);
+            const [L2, A2, B2] = Colour.rgba2lab(color2.r, color2.g, color2.b);
+            const deltaE = Colour.deltaE00(L1, A1, B1, L2, A2, B2);
 
-        if (!similarity.similar) {
-          let headersList = {
-            "Accept": "audio/mpeg",
-            "Content-Type": "application/json"
+            return deltaE;
+          });
+
+          const average =
+            difference.reduce((a, b) => a + b, 0) / difference.length;
+
+          console.log(difference);
+          console.log(average);
+
+          if (average > 12) {
+            similar = false;
+          } else {
+            similar = true;
           }
 
-          let bodyContent = JSON.stringify({
-            base64Image: clone.toDataURL('image/png'),
-            sessionHash
-          });
+          setColors([...accumulatedColors]);
+        }
 
-          let response = await fetch("http://localhost:3000/api/auto-caption", {
-            method: "POST",
-            body: bodyContent,
-            headers: headersList
-          });
+        console.log("Scene just changed? ", !similar);
 
-          let data = await response.blob();
-          console.log(data);
+        if (!similar) {
+          let headersList = {
+            Accept: "audio/mpeg",
+            "Content-Type": "application/json",
+          };
+
+          // let bodyContent = JSON.stringify({
+          //   base64Image: clone.toDataURL("image/png"),
+          //   sessionHash,
+          // });
+
+          // let response = await fetch("https://crystalrohr-api-production.up.railway.app/api/auto-caption", {
+          //   method: "POST",
+          //   body: bodyContent,
+          //   headers: headersList,
+          // });
+
+          // let data = await response.blob();
+          // console.log(data);
+
+          // const blobUrl = URL.createObjectURL(data);
+
+          // audio.src = blobUrl;
+          // audio.play()
+          // audio.onload = () => {
+          //   URL.revokeObjectURL(blobUrl);
+          // };
+
+          console.log("something happens");
         }
 
         // // append new cell to sliced.
@@ -182,10 +172,10 @@ const useCanvas = () => {
         console.log(e);
       }
     },
-    [ref, _compareColorSimilariy, _getAverageColor, _setUpCanvas]
+    [ref, colors, intervalId, setColors]
   );
 
-  return { ref, captureVideo };
+  return { ref, autoCaption };
 };
 
 export default useCanvas;
