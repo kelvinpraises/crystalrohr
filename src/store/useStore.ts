@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import createYTLinkSlice from "./createYTLinkSlice";
+import createYTInfoSlice from "./createYTInfoSlice";
 
 
 type StateFromFunctions<T extends [...any]> = T extends [infer F, ...infer R]
@@ -11,14 +11,14 @@ type StateFromFunctions<T extends [...any]> = T extends [infer F, ...infer R]
 
 type State = StateFromFunctions<
   [
-    typeof createYTLinkSlice,
+    typeof createYTInfoSlice,
   ]
 >;
 
 export const useStore = create<State>()(
   devtools(
     (set, get, store) => ({
-      ...createYTLinkSlice(set, get, store),
+      ...createYTInfoSlice(set, get, store),
     }),
     { name: "crystalrohr" }
   )
