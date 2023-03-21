@@ -1,19 +1,18 @@
-
 import { immer } from "zustand/middleware/immer";
 
 type State = {
-  accessToken: string | null;
+  youTubeLink: string;
 };
 
 type Actions = {
-  setAccessToken: (token: string) => void;
+  setYouTubeLink: (link: string) => void;
 };
 
 export default immer<State & Actions>((set, get) => ({
-  accessToken: null,
+  youTubeLink: "",
 
-  setAccessToken: (token) =>
+  setYouTubeLink: (link) =>
     set((state) => {
-      state.accessToken = token;
+      state.youTubeLink = link;
     }),
 }));
