@@ -1,9 +1,11 @@
 "use client";
+import { useStore } from "@/store/useStore";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
-  const [url, setUrl] = useState("");
+  const youTubeLink = useStore((state) => state.youTubeLink);
+  const setYouTubeLink = useStore((state) => state.setYouTubeLink);
 
   return (
     <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
@@ -16,11 +18,13 @@ export default function Home() {
           <input
             type="text"
             className=" w-full h-[60px] bg-[#131314] font-light focus:outline-none p-2 rounded-[3px]"
+            value={youTubeLink}
+            onChange={(e) => {
+              setYouTubeLink(e.target.value);
+            }}
           />
 
-          <button
-            className=" w-[120px] grid place-items-center cur"
-          >
+          <button className=" w-[120px] grid place-items-center cur">
             <p className=" text-lg">Start</p>
           </button>
         </div>
