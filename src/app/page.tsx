@@ -1,11 +1,31 @@
 "use client";
 import { useStore } from "@/store/useStore";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const youTubeLink = useStore((state) => state.youTubeLink);
   const setYouTubeLink = useStore((state) => state.setYouTubeLink);
+  const setYouTubeId = useStore((state) => state.setYouTubeId);
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    const regex = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
+
+    if (regex.test(youTubeLink)) {
+      const params = new URL(youTubeLink).searchParams;
+      let v = params.get("v");
+      if (v?.length) {
+        setYouTubeId(v);
+        router.push("/watch");
+      } else {
+        alert("Please input a valid YouTube link");
+      }
+    } else {
+      alert("Please input a valid YouTube link");
+    }
+  };
 
   return (
     <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
@@ -24,7 +44,10 @@ export default function Home() {
             }}
           />
 
-          <button className=" w-[120px] grid place-items-center cur">
+          <button
+            onClick={handleClick}
+            className=" w-[120px] grid place-items-center cur"
+          >
             <p className=" text-lg">Start</p>
           </button>
         </div>

@@ -2,7 +2,6 @@ import { useCallback, useRef, useState } from "react";
 import { Colour } from "../utils/colors";
 
 const useCanvas = () => {
-  const ref = useRef<HTMLCanvasElement | null>(null);
   const [colors, setColors] = useState<{ r: number; g: number; b: number }[]>(
     []
   );
@@ -17,11 +16,13 @@ const useCanvas = () => {
     async (
       video: HTMLVideoElement,
       audio: HTMLAudioElement,
-      sliced: HTMLDivElement
+      sliced: HTMLDivElement,
+      canvas: HTMLCanvasElement,
+      canvas2: HTMLCanvasElement
     ) => {
       try {
-        let canvas = ref.current as HTMLCanvasElement;
         const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+        const context2 = canvas2.getContext("2d") as CanvasRenderingContext2D;
 
         const w = video.videoWidth;
         const h = video.videoHeight;
@@ -33,14 +34,24 @@ const useCanvas = () => {
         context.drawImage(video, 0, 0, w, h);
 
         // Clone image.
-        const clone = canvas.cloneNode(true) as HTMLCanvasElement;
-        clone.getContext("2d")!.drawImage(canvas, 0, 0);
+        canvas2.width = canvas.width;
+        canvas2.height = canvas.height;
+        context2.drawImage(canvas, 0, 0);
+
+        // const clone = canvas.cloneNode(true) as HTMLCanvasElement;
+        // clone.getContext("2d")?.drawImage(canvas, 0, 0);
 
         const col = 8;
         const row = 4;
         const colWidth = canvas.width / col;
         const rowHeight = canvas.height / row;
         const accumulatedColors: { r: number; g: number; b: number }[] = [];
+
+        console.log(
+          "THIS THIS THIS THIS THIS THIS THIS!!!!!!!!!!!!!!!!!!!!!!!"
+        );
+        console.log(rowHeight);
+        console.log(colWidth);
 
         while (sliced.firstChild) {
           sliced.removeChild(sliced?.lastChild as ChildNode);
@@ -53,21 +64,11 @@ const useCanvas = () => {
             canvas.height = rowHeight;
 
             context.clearRect(0, 0, colWidth, rowHeight);
-            context.drawImage(
-              clone,
-              j * colWidth,
-              i * rowHeight,
-              colWidth,
-              rowHeight,
-              0,
-              0,
-              colWidth,
-              rowHeight
-            );
-
-            const a = w * h;
+            context.drawImage(canvas2, 0, 0);
 
             // Get colors.
+            const a = w * h;
+
             const data = context.getImageData(0, 0, w, h).data;
             let r = 0;
             let g = 0;
@@ -104,6 +105,11 @@ const useCanvas = () => {
         } else {
           const difference = colors.map((color1, i) => {
             const color2 = accumulatedColors[i];
+
+            console.log("this is color1");
+            console.log(color1);
+            console.log("this is color2");
+            console.log(color2);
 
             // convert RGB to LAB
             const [L1, A1, B1] = Colour.rgba2lab(color1.r, color1.g, color1.b);
@@ -172,10 +178,10 @@ const useCanvas = () => {
         console.log(e);
       }
     },
-    [ref, colors, intervalId, setColors]
+    [colors, intervalId, setColors]
   );
 
-  return { ref, autoCaption };
+  return { autoCaption };
 };
 
 export default useCanvas;

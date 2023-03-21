@@ -11,15 +11,17 @@ export default function Page() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const slicedRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef2 = useRef<HTMLCanvasElement>(null);
 
   const youTubeId = useStore((state) => state.youTubeId);
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
   const [poster, setPoster] = useState("");
   const [show, setShow] = useState(false);
-  const [startCaption, setStartCaption] = useState(false);
+  const [startCaption, setStartCaption] = useState(true);
 
-  const { ref: canvasref, autoCaption } = useCanvas();
+  const { autoCaption } = useCanvas();
 
   useEffect(() => {
     (async () => {
@@ -81,7 +83,7 @@ export default function Page() {
         period: 1000,
         condition: () => startCaption,
       });
-  }, [buttonRef.current, show]);
+  }, [buttonRef.current, show, startCaption]);
 
   if (!show) {
     return null;
@@ -89,7 +91,8 @@ export default function Page() {
 
   return (
     <>
-      <Canvas {...{ canvasref }} />
+      <Canvas {...{ canvasRef: canvasRef }} />
+      <Canvas {...{ canvasRef: canvasRef2 }} />
 
       <button
         hidden
@@ -98,7 +101,9 @@ export default function Page() {
           await autoCaption(
             videoRef.current!,
             audioRef.current!,
-            slicedRef.current!
+            slicedRef.current!,
+            canvasRef.current!,
+            canvasRef2.current!
           )
         }
       >
@@ -129,7 +134,6 @@ export default function Page() {
                 crossOrigin="anonymous"
                 ref={videoRef}
                 style={{ height: 405 }}
-                height={405}
                 controls
                 preload="metadata"
                 poster={poster}
@@ -139,14 +143,14 @@ export default function Page() {
                 />
               </video>
 
-              <div
-                ref={slicedRef}
-                style={{ display: "flex", flexWrap: "wrap" }}
-              ></div>
-
               <audio ref={audioRef} hidden />
             </div>
           </div>
+
+          <div
+            ref={slicedRef}
+            style={{ display: "flex", flexWrap: "wrap" }}
+          ></div>
 
           <div className=" w-full p-4 gap-4 flex h-[66px] bg-[#2B2B30] items-center backdrop-blur-2xl">
             <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">
