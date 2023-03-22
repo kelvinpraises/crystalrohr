@@ -10,7 +10,9 @@ export default function Home() {
 
   const router = useRouter();
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent) => {
+    e.preventDefault();
+
     const regex = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
 
     if (regex.test(youTubeLink)) {
