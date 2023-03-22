@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
-
   const videoRef = useRef<HTMLVideoElement>(null);
   const slicedRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -107,7 +106,6 @@ export default function Page() {
       >
         Capture Image
       </button>
-
 
       <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
         <div className=" flex flex-col w-[740px] justify-between gap-5 mt-5">
