@@ -1,14 +1,19 @@
 import useStateCallback from "@/utils/useStateCallback";
 import { useCallback, useEffect, useState } from "react";
+import { arrayBuffer } from "stream/consumers";
 import { Colour } from "../utils/colors";
 
 const useCanvas = () => {
   const [colors, setColors] = useState<{ r: number; g: number; b: number }[]>(
     []
   );
-  const [audioContext, setAudioContext] = useStateCallback<AudioContext | null>(
-    null
-  );
+  const [audioState, setAudioState] = useStateCallback<{
+    audioContext: AudioContext | null;
+    sources: any[];
+  }>({
+    audioContext: null,
+    sources: [],
+  });
 
   const [sessionHash, setSessionHash] = useState("");
 
@@ -130,6 +135,13 @@ const useCanvas = () => {
 
         console.log("Scene just changed? ", !similar);
 
+        // if (audioState.audioContext) {
+        //   audioState.audioContext.close();
+        //   setAudioState((prev) => {
+        //     return { ...prev, audioContext: null };
+        //   });
+        // }
+
         if (!similar) {
           let headersList = {
             Accept: "audio/mpeg",
@@ -141,39 +153,49 @@ const useCanvas = () => {
             sessionHash,
           });
 
-          // let response = await fetch("https://crystalrohr-api-production.up.railway.app/api/auto-caption", {
-          //   method: "POST",
-          //   body: bodyContent,
-          //   headers: headersList,
-          // });
+          setAudioState(
+            { audioContext: new AudioContext(), sources: [] },
+            (audioState) => {
+              const audioPlay = async (audioBuffer: AudioBuffer) => {
+                if (!audioState.audioContext) return;
 
-          // let data = await response.blob();
-          // console.log(data);
+                console.log(audioBuffer);
 
-          // const blobUrl = URL.createObjectURL(data);
+                // Stop sound before the next one starts.
+                // (() => {
+                //   for (let i = 0; i < 8; i++)
+                //     if (audioState.sources[i]) audioState.sources[i].stop(0);
+                // })();
 
-          if (audioContext) await audioContext.close();
+                const source = audioState.audioContext.createBufferSource();
+                source.buffer = audioBuffer;
+                source.connect(audioState.audioContext.destination);
+                source.start();
 
-          setAudioContext(new AudioContext(), (audioContext) => {
-            const audioPlay = async (audioBuffer: AudioBuffer) => {
-              if (!audioContext) return;
-              const source = audioContext.createBufferSource();
-              source.buffer = audioBuffer;
-              source.connect(audioContext.destination);
-              source.start();
-            };
+                // Save audio source to sources.
+                setAudioState((prev) => {
+                  return { ...prev, sources: [...audioState.sources, source] };
+                });
+              };
 
-            (async () => {
-              audioContext = new AudioContext();
-              await fetch(
-                "https://web-production-44900.up.railway.app/" +
-                  "http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3"
-              )
-                .then((res) => res.arrayBuffer())
-                .then((ArrayBuffer) => audioContext!.decodeAudioData(ArrayBuffer) )
-                .then(audioPlay);
-            })();
-          });
+              (async () => {
+                await fetch(
+                  "https://crystalrohr-api-production.up.railway.app/api/auto-caption",
+                  {
+                    method: "POST",
+                    body: bodyContent,
+                    headers: headersList,
+                  }
+                )
+                  .then((res) => res.arrayBuffer())
+                  .then((ArrayBuffer) => {
+                    if (!audioState.audioContext) throw Error;
+                    return audioState.audioContext.decodeAudioData(ArrayBuffer);
+                  })
+                  .then(audioPlay);
+              })();
+            }
+          );
 
           console.log("something happens");
         }
