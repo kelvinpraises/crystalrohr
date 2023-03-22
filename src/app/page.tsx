@@ -22,7 +22,7 @@ export default function Home() {
             onChange={(e) => {
               setYouTubeLink(e.target.value);
             }}
-            placeholder="Search or paste link here..."
+            placeholder="Paste a YouTube link here..."
           />
 
           <button className=" w-[120px] grid place-items-center cur">
