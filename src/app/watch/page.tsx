@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const slicedRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -81,7 +80,7 @@ export default function Page() {
       poll({
         callFn: async () => buttonRef.current!.click(),
         period: 1000,
-        condition: () => startCaption,
+        condition: () => !startCaption,
       });
   }, [buttonRef.current, show, startCaption]);
 
@@ -100,7 +99,6 @@ export default function Page() {
         onClick={async () =>
           await autoCaption(
             videoRef.current!,
-            audioRef.current!,
             slicedRef.current!,
             canvasRef.current!,
             canvasRef2.current!
@@ -123,6 +121,11 @@ export default function Page() {
 
           <div className=" flex justify-center w-full relative">
             <div
+              className={`absolute`}
+              ref={slicedRef}
+              style={{ display: "flex", flexWrap: "wrap" }}
+            ></div>
+            <div
               className={` absolute top-0 w-[830px] h-[450px] overflow-hidden cursor-pointer blur-3xl backdrop-blur-2xl`}
               style={{
                 backgroundColor: "rgba(255, 255, 255, 0.05)",
@@ -133,24 +136,18 @@ export default function Page() {
               <video
                 crossOrigin="anonymous"
                 ref={videoRef}
+                height={405}
                 style={{ height: 405 }}
                 controls
                 preload="metadata"
-                poster={poster}
+                poster={"https://web-production-44900.up.railway.app/" + poster}
               >
                 <source
                   src={"https://web-production-44900.up.railway.app/" + link}
                 />
               </video>
-
-              <audio ref={audioRef} hidden />
             </div>
           </div>
-
-          <div
-            ref={slicedRef}
-            style={{ display: "flex", flexWrap: "wrap" }}
-          ></div>
 
           <div className=" w-full p-4 gap-4 flex h-[66px] bg-[#2B2B30] items-center backdrop-blur-2xl">
             <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">

@@ -1,21 +1,24 @@
-import { useCallback, useRef, useState } from "react";
+import useStateCallback from "@/utils/useStateCallback";
+import { useCallback, useEffect, useState } from "react";
 import { Colour } from "../utils/colors";
 
 const useCanvas = () => {
   const [colors, setColors] = useState<{ r: number; g: number; b: number }[]>(
     []
   );
-  const [intervalId, setIntervalId] = useState<any>();
-  // const [sessionHash, setSessionHash] = useState("");
+  const [audioContext, setAudioContext] = useStateCallback<AudioContext | null>(
+    null
+  );
 
-  // useEffect(() => {
-  //   setSessionHash(""); // uuid here
-  // }, [setSessionHash]);
+  const [sessionHash, setSessionHash] = useState("");
+
+  useEffect(() => {
+    setSessionHash(""); // uuid here
+  }, [setSessionHash]);
 
   const autoCaption = useCallback(
     async (
       video: HTMLVideoElement,
-      audio: HTMLAudioElement,
       sliced: HTMLDivElement,
       canvas: HTMLCanvasElement,
       canvas2: HTMLCanvasElement
@@ -33,25 +36,11 @@ const useCanvas = () => {
         context.fillRect(0, 0, w, h);
         context.drawImage(video, 0, 0, w, h);
 
-        // Clone image.
-        canvas2.width = canvas.width;
-        canvas2.height = canvas.height;
-        context2.drawImage(canvas, 0, 0);
-
-        // const clone = canvas.cloneNode(true) as HTMLCanvasElement;
-        // clone.getContext("2d")?.drawImage(canvas, 0, 0);
-
         const col = 8;
         const row = 4;
         const colWidth = canvas.width / col;
         const rowHeight = canvas.height / row;
         const accumulatedColors: { r: number; g: number; b: number }[] = [];
-
-        console.log(
-          "THIS THIS THIS THIS THIS THIS THIS!!!!!!!!!!!!!!!!!!!!!!!"
-        );
-        console.log(rowHeight);
-        console.log(colWidth);
 
         while (sliced.firstChild) {
           sliced.removeChild(sliced?.lastChild as ChildNode);
@@ -60,16 +49,26 @@ const useCanvas = () => {
         // Divide image into blocks.
         for (var i = 0; i < row; i++) {
           for (var j = 0; j < col; j++) {
-            canvas.width = colWidth;
-            canvas.height = rowHeight;
+            canvas2.width = w;
+            canvas2.height = h;
 
-            context.clearRect(0, 0, colWidth, rowHeight);
-            context.drawImage(canvas2, 0, 0);
+            context2.clearRect(0, 0, colWidth, rowHeight);
+            context2.drawImage(
+              canvas,
+              j * colWidth,
+              i * rowHeight,
+              colWidth,
+              rowHeight,
+              0,
+              0,
+              colWidth,
+              rowHeight
+            );
 
             // Get colors.
-            const a = w * h;
+            const a = colWidth * rowHeight;
 
-            const data = context.getImageData(0, 0, w, h).data;
+            const data = context2.getImageData(0, 0, colWidth, rowHeight).data;
             let r = 0;
             let g = 0;
             let b = 0;
@@ -106,11 +105,6 @@ const useCanvas = () => {
           const difference = colors.map((color1, i) => {
             const color2 = accumulatedColors[i];
 
-            console.log("this is color1");
-            console.log(color1);
-            console.log("this is color2");
-            console.log(color2);
-
             // convert RGB to LAB
             const [L1, A1, B1] = Colour.rgba2lab(color1.r, color1.g, color1.b);
             const [L2, A2, B2] = Colour.rgba2lab(color2.r, color2.g, color2.b);
@@ -142,10 +136,10 @@ const useCanvas = () => {
             "Content-Type": "application/json",
           };
 
-          // let bodyContent = JSON.stringify({
-          //   base64Image: clone.toDataURL("image/png"),
-          //   sessionHash,
-          // });
+          let bodyContent = JSON.stringify({
+            base64Image: canvas.toDataURL("image/png"),
+            sessionHash,
+          });
 
           // let response = await fetch("https://crystalrohr-api-production.up.railway.app/api/auto-caption", {
           //   method: "POST",
@@ -158,19 +152,31 @@ const useCanvas = () => {
 
           // const blobUrl = URL.createObjectURL(data);
 
-          // audio.src = blobUrl;
-          // audio.play()
-          // audio.onload = () => {
-          //   URL.revokeObjectURL(blobUrl);
-          // };
+          if (audioContext) await audioContext.close();
+
+          setAudioContext(new AudioContext(), (audioContext) => {
+            const audioPlay = async (audioBuffer: AudioBuffer) => {
+              if (!audioContext) return;
+              const source = audioContext.createBufferSource();
+              source.buffer = audioBuffer;
+              source.connect(audioContext.destination);
+              source.start();
+            };
+
+            (async () => {
+              audioContext = new AudioContext();
+              await fetch(
+                "https://web-production-44900.up.railway.app/" +
+                  "http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3"
+              )
+                .then((res) => res.arrayBuffer())
+                .then((ArrayBuffer) => audioContext!.decodeAudioData(ArrayBuffer) )
+                .then(audioPlay);
+            })();
+          });
 
           console.log("something happens");
         }
-
-        // // append new cell to sliced.
-        // sliced.appendChild(clone);
-
-        // console.log(JSON.stringify(colors, null, 2));
 
         // clean the canvas.
         context.clearRect(0, 0, w, h);
@@ -178,7 +184,7 @@ const useCanvas = () => {
         console.log(e);
       }
     },
-    [colors, intervalId, setColors]
+    [colors, setColors]
   );
 
   return { autoCaption };
