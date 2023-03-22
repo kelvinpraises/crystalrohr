@@ -1,5 +1,4 @@
 "use client";
-import Canvas from "@/component/Canvas";
 import useCanvas from "@/hooks/useCanvas";
 import { useStore } from "@/store/useStore";
 import poll from "@/utils/poll";
@@ -90,8 +89,8 @@ export default function Page() {
 
   return (
     <>
-      <Canvas {...{ canvasRef: canvasRef }} />
-      <Canvas {...{ canvasRef: canvasRef2 }} />
+      <canvas hidden ref={canvasRef} />;
+      <canvas hidden ref={canvasRef2} />;
       <button
         hidden
         ref={buttonRef}
@@ -106,7 +105,6 @@ export default function Page() {
       >
         Capture Image
       </button>
-
       <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
         <div className=" flex flex-col w-[740px] justify-between gap-5 mt-5">
           <div className="flex gap-4 z-[1] items-center w-full">
