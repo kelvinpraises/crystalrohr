@@ -2,6 +2,7 @@
 import { useStore } from "@/store/useStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 
 export default function Home() {
   const youTubeLink = useStore((state) => state.youTubeLink);
@@ -10,7 +11,9 @@ export default function Home() {
 
   const router = useRouter();
 
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     e.preventDefault();
 
     const regex = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
