@@ -14,20 +14,21 @@ export default function Home() {
           Auto Caption YouTube Videos
         </p>
 
-        <div className=" flex w-full bg-[#404249c3] p-[6px] rounded-lg">
+        <form className=" flex w-full bg-[#404249c3] p-[6px] rounded-lg">
           <input
             type="text"
-            className=" w-full h-[60px] bg-[#131314] font-light focus:outline-none p-2 rounded-[3px]"
+            className=" w-full h-[60px] bg-[#131314] font-light focus:outline-none px-3 rounded-[3px] placeholder:font-light placeholder:text-gray-300"
             value={youTubeLink}
             onChange={(e) => {
               setYouTubeLink(e.target.value);
             }}
+            placeholder="Search or paste link here..."
           />
 
           <button className=" w-[120px] grid place-items-center cur">
             <p className=" text-lg">Start</p>
           </button>
-        </div>
+        </form>
 
         <p className=" font-semibold text-sm">
           Login to see your encrypted History and Notes
