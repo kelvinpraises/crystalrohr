@@ -29,6 +29,8 @@ const useCanvas = () => {
       canvas2: HTMLCanvasElement
     ) => {
       try {
+        if (!video.videoHeight) return;
+
         const context = canvas.getContext("2d") as CanvasRenderingContext2D;
         const context2 = canvas2.getContext("2d") as CanvasRenderingContext2D;
 
@@ -104,7 +106,8 @@ const useCanvas = () => {
         let similar: boolean;
 
         if (colors.length === 0) {
-          similar = false;
+          // init with true to prevent blank canvas caption
+          similar = true;
           setColors([...accumulatedColors]);
         } else {
           const difference = colors.map((color1, i) => {
@@ -121,8 +124,8 @@ const useCanvas = () => {
           const average =
             difference.reduce((a, b) => a + b, 0) / difference.length;
 
-          console.log(difference);
-          console.log(average);
+          console.debug(difference);
+          console.debug(average);
 
           if (average > 12) {
             similar = false;
@@ -133,7 +136,7 @@ const useCanvas = () => {
           setColors([...accumulatedColors]);
         }
 
-        console.log("Scene just changed? ", !similar);
+        console.debug("Scene just changed? ", !similar);
 
         // if (audioState.audioContext) {
         //   audioState.audioContext.close();
@@ -158,8 +161,6 @@ const useCanvas = () => {
             (audioState) => {
               const audioPlay = async (audioBuffer: AudioBuffer) => {
                 if (!audioState.audioContext) return;
-
-                console.log(audioBuffer);
 
                 // Stop sound before the next one starts.
                 // (() => {
@@ -196,8 +197,6 @@ const useCanvas = () => {
               })();
             }
           );
-
-          console.log("something happens");
         }
 
         // clean the canvas.

@@ -2,6 +2,7 @@
 import { useStore } from "@/store/useStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 
 export default function Home() {
   const youTubeLink = useStore((state) => state.youTubeLink);
@@ -10,7 +11,11 @@ export default function Home() {
 
   const router = useRouter();
 
-  const handleClick = () => {
+  const handleClick = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    e.preventDefault();
+
     const regex = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
 
     if (regex.test(youTubeLink)) {
@@ -34,14 +39,15 @@ export default function Home() {
           Auto Caption YouTube Videos
         </p>
 
-        <div className=" flex w-full bg-[#404249c3] p-[6px] rounded-lg">
+        <form className=" flex w-full bg-[#404249c3] p-[6px] rounded-lg">
           <input
             type="text"
-            className=" w-full h-[60px] bg-[#131314] font-light focus:outline-none p-2 rounded-[3px]"
+            className=" w-full h-[60px] bg-[#131314] font-light focus:outline-none px-3 rounded-[3px] placeholder:font-light placeholder:text-gray-300"
             value={youTubeLink}
             onChange={(e) => {
               setYouTubeLink(e.target.value);
             }}
+            placeholder="Paste a YouTube link here..."
           />
 
           <button
@@ -50,7 +56,7 @@ export default function Home() {
           >
             <p className=" text-lg">Start</p>
           </button>
-        </div>
+        </form>
 
         <p className=" font-semibold text-sm">
           Login to see your encrypted History and Notes

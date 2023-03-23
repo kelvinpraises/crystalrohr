@@ -1,5 +1,4 @@
 "use client";
-import Canvas from "@/component/Canvas";
 import useCanvas from "@/hooks/useCanvas";
 import { useStore } from "@/store/useStore";
 import poll from "@/utils/poll";
@@ -90,9 +89,8 @@ export default function Page() {
 
   return (
     <>
-      <Canvas {...{ canvasRef: canvasRef }} />
-      <Canvas {...{ canvasRef: canvasRef2 }} />
-
+      <canvas hidden ref={canvasRef} />;
+      <canvas hidden ref={canvasRef2} />;
       <button
         hidden
         ref={buttonRef}
@@ -107,7 +105,6 @@ export default function Page() {
       >
         Capture Image
       </button>
-
       <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
         <div className=" flex flex-col w-[740px] justify-between gap-5 mt-5">
           <div className="flex gap-4 z-[1] items-center w-full">
@@ -118,7 +115,6 @@ export default function Page() {
               {title}
             </p>
           </div>
-
           <div className=" flex justify-center w-full relative">
             <div
               className={`absolute`}
@@ -132,7 +128,7 @@ export default function Page() {
               }}
             />
 
-            <div className=" flex justify-center items-center relative w-full h-[405px] overflow-hidden cursor-pointer">
+            <div className=" flex justify-center items-center relative w-full h-[405px] overflow-hidden cursor-pointer rounded-lg">
               <video
                 crossOrigin="anonymous"
                 ref={videoRef}
@@ -149,7 +145,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className=" w-full p-4 gap-4 flex h-[66px] bg-[#2B2B30] items-center backdrop-blur-2xl">
+          <div className=" w-full p-4 gap-4 flex h-[66px] bg-[#2B2B30] items-center backdrop-blur-2xl rounded-lg">
             <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">
               <p>Auto Caption</p>
               <label className="relative inline-flex items-center cursor-pointer">
