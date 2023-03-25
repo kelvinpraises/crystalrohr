@@ -16,13 +16,23 @@ export default function Home() {
   ) => {
     e.preventDefault();
 
-    const regex = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
+    const regex1 = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
+    const regex2 = /https?:\/\/youtu\.be\/[a-zA-Z0-9_-]{11}/;
 
-    if (regex.test(youTubeLink)) {
+
+    if (regex1.test(youTubeLink)) {
       const params = new URL(youTubeLink).searchParams;
       let v = params.get("v");
       if (v?.length) {
         setYouTubeId(v);
+        router.push("/watch");
+      } else {
+        alert("Please input a valid YouTube link");
+      }
+    } else if (regex2.test(youTubeLink)) {
+      const pathname = new URL(youTubeLink).pathname.split("/")[1];
+      if (pathname?.length) {
+        setYouTubeId(pathname);
         router.push("/watch");
       } else {
         alert("Please input a valid YouTube link");
