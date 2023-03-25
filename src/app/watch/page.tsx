@@ -89,8 +89,8 @@ export default function Page() {
 
   return (
     <>
-      <canvas hidden ref={canvasRef} />;
-      <canvas hidden ref={canvasRef2} />;
+      <canvas hidden ref={canvasRef} />
+      <canvas hidden ref={canvasRef2} />
       <button
         hidden
         ref={buttonRef}
