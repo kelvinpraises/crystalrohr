@@ -1,16 +1,12 @@
 "use client";
 import useCanvas from "@/hooks/useCanvas";
 import { useStore } from "@/store/useStore";
-import poll from "@/utils/poll";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const slicedRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvasRef2 = useRef<HTMLCanvasElement>(null);
+  const router = useRouter();
 
   const youTubeId = useStore((state) => state.youTubeId);
   const [link, setLink] = useState("");
@@ -19,7 +15,13 @@ export default function Page() {
   const [show, setShow] = useState(false);
   const [startCaption, setStartCaption] = useState(true);
 
-  const { autoCaption } = useCanvas();
+  const { videoRef, slicedRef, canvasRef, canvasRef2, killPoll, respawnPoll } =
+    useCanvas();
+
+  useEffect(() => {
+    if (youTubeId) return;
+    router.push("/");
+  }, [youTubeId]);
 
   useEffect(() => {
     (async () => {
@@ -73,15 +75,15 @@ export default function Page() {
     })();
   }, []);
 
-  useEffect(() => {
-    show &&
-      buttonRef.current &&
-      poll({
-        callFn: async () => buttonRef.current!.click(),
-        period: 1000,
-        condition: () => !startCaption,
-      });
-  }, [buttonRef.current, show, startCaption]);
+  const handleCaption = () => {
+    setStartCaption((x) => !x);
+
+    if (!startCaption) {
+      respawnPoll();
+    } else {
+      killPoll();
+    }
+  };
 
   if (!show) {
     return null;
@@ -91,20 +93,6 @@ export default function Page() {
     <>
       <canvas hidden ref={canvasRef} />
       <canvas hidden ref={canvasRef2} />
-      <button
-        hidden
-        ref={buttonRef}
-        onClick={async () =>
-          await autoCaption(
-            videoRef.current!,
-            slicedRef.current!,
-            canvasRef.current!,
-            canvasRef2.current!
-          )
-        }
-      >
-        Capture Image
-      </button>
       <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
         <div className=" flex flex-col w-[740px] justify-between gap-5 mt-5">
           <div className="flex gap-4 z-[1] items-center w-full">
@@ -152,7 +140,7 @@ export default function Page() {
                 <input
                   type="checkbox"
                   defaultChecked={startCaption}
-                  onChange={() => setStartCaption((x) => !x)}
+                  onChange={handleCaption}
                   id="autoCaption"
                   name="Auto caption"
                   className="sr-only peer"
