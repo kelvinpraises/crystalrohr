@@ -18,6 +18,7 @@ const forumPostReference = db.collection("ForumPost");
 export const usePolybase = () => {
   const [loggedIn, setLogin] = useState(false);
   const [user, setUser] = useState<any>();
+  const [getNotesRecord, setNotesRecord] = useState<any>();
 
   useMemo(() => {
     auth?.onAuthUpdate((authState) => {
@@ -140,12 +141,16 @@ export const usePolybase = () => {
     return await Promise.all(data);
   }, []);
 
-  const getNotesRecord = useCallback(async () => {
-    const { notesId } = (await userReference.record(user).get()) as any;
-    const data = (notesId as any[]).map(
-      async (id) => await noteReference.record(id).get()
+  useMemo(async () => {
+    userReference.record(user).onSnapshot(
+      (newDoc) => {
+        const { notesId } = newDoc as any;
+        setNotesRecord(notesId);
+      },
+      (err) => {
+        console.log(err);
+      }
     );
-    return await Promise.all(data);
   }, []);
 
   const getForumsRecord = useCallback(async () => {
