@@ -10,7 +10,7 @@ export default function Home() {
   const setYouTubeLink = useStore((state) => state.setYouTubeLink);
   const setYouTubeId = useStore((state) => state.setYouTubeId);
 
-  const { createUserRecord } = usePolybase()
+  const { loggedIn } = usePolybase();
 
   const router = useRouter();
 
@@ -21,7 +21,6 @@ export default function Home() {
 
     const regex1 = /https?:\/\/www\.youtube\.com\/[a-zA-Z0-9]+/;
     const regex2 = /https?:\/\/youtu\.be\/[a-zA-Z0-9_-]{11}/;
-
 
     if (regex1.test(youTubeLink)) {
       const params = new URL(youTubeLink).searchParams;
@@ -48,7 +47,6 @@ export default function Home() {
   return (
     <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
       <div className=" w-[650px] flex flex-col gap-12 mt-5 items-center">
-        <button onClick={async () => await createUserRecord()}>create account</button>
         <p className=" font-imprima text-4xl text-white">
           Auto Caption YouTube Videos
         </p>
@@ -72,25 +70,27 @@ export default function Home() {
           </button>
         </form>
 
-        <p className=" font-semibold text-sm">
-          Login to see your encrypted History and Notes
-        </p>
+        {!loggedIn ? (
+          <p className=" font-semibold text-sm">
+            Login to see your encrypted History and Notes
+          </p>
+        ) : (
+          <div className=" flex gap-[50px] items-center mt-2.5">
+            <Link href={"/history"}>
+              <div className=" flex items-center gap-[10px]">
+                <img src="/Activity.svg" alt="history" />
+                <p className=" font-semibold">History</p>
+              </div>
+            </Link>
 
-        <div className=" flex gap-[50px] items-center mt-2.5">
-          <Link href={"/history"}>
-            <div className=" flex items-center gap-[10px]">
-              <img src="/Activity.svg" alt="history" />
-              <p className=" font-semibold">History</p>
-            </div>
-          </Link>
-
-          <Link href={"/notes"}>
-            <div className=" flex items-center gap-[10px]">
-              <img src="/Paper.svg" alt="notes" />
-              <p className=" font-semibold">Notes</p>
-            </div>
-          </Link>
-        </div>
+            <Link href={"/notes"}>
+              <div className=" flex items-center gap-[10px]">
+                <img src="/Paper.svg" alt="notes" />
+                <p className=" font-semibold">Notes</p>
+              </div>
+            </Link>
+          </div>
+        )}
 
         <img
           src="/blur.svg"
