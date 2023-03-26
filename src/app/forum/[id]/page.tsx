@@ -1,14 +1,46 @@
 "use client";
 import Forum from "@/component/Forum";
+import { forumData } from "@/data/data";
 import { useStore } from "@/store/useStore";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
+  const pathname = usePathname();
+  const path = pathname.split("/");
+  const id = path[2];
+
   const youTubeId = useStore((state) => state.youTubeId);
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
   const [poster, setPoster] = useState("");
+
+  const [forum, setForum] = useState<{
+    topic: string;
+    message: string;
+    answers: {
+      message: string;
+      creator: string;
+      time: string;
+      AvatarSource: string;
+    }[];
+    awardedAnswer: {
+      message: string;
+      creator: string;
+      time: string;
+      AvatarSource: string;
+    };
+    date: string;
+  }>();
+
+  useEffect(() => {
+    let forum = forumData.find((forum) => forum.id === parseInt(id));
+
+    if (forum) {
+      setForum(forum);
+    }
+  }, [id]);
 
   useEffect(() => {
     (async () => {
@@ -59,19 +91,18 @@ export default function Page() {
     })();
   }, []);
 
-
   return (
     <>
-      <div className="  w-full pb-8 flex justify-center">
+      <div className="  w-full p-4 pb-8 flex justify-center ">
         <div className=" flex gap-4 mt-5 items-start">
-          <Link href={"/"} className=" pt-2">
+          <Link href={"/forum"} className=" pt-2">
             <img src="/arrowBack.svg" alt="go back" />
           </Link>
 
-          <div className=" flex flex-col gap-5 w-[650px]">
+          <div className=" flex flex-col gap-5 max-w-[650px] w-full">
             <div className="flex gap-4 z-[1] items-center w-full">
               <p className=" font-imprima text-4xl text-white ">
-                Can anyone tell me whats going on in this video
+                {forum && forum.topic}
               </p>
             </div>
             <div className=" flex justify-center w-full relative">
@@ -92,8 +123,13 @@ export default function Page() {
                 </video>
               </div>
             </div>
-            <div className=" z-10 bg-[#2B2B30] p-4 rounded-lg">This is where the description is, it is optional so the user can skip if they want to</div>
-            <Forum />
+            <div className=" z-10 bg-[#2B2B30] p-4 rounded-lg">
+              {forum?.message}
+            </div>
+            <Forum
+              awardedAnswer={forum?.awardedAnswer!}
+              answers={forum?.answers!}
+            />
           </div>
         </div>
       </div>
