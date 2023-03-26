@@ -15,6 +15,7 @@ export default function Page() {
   const [poster, setPoster] = useState("");
   const [show, setShow] = useState(false);
   const [startCaption, setStartCaption] = useState(true);
+  const [askForum, setAskForum] = useState(false);
 
   const { videoRef, slicedRef, canvasRef, canvasRef2, killPoll, respawnPoll } =
     useCaption();
@@ -56,7 +57,7 @@ export default function Page() {
         setLink(data.msg.streamingData.formats[0].url);
         setTitle(data.msg.videoDetails.title);
 
-        (data.msg.videoDetails.thumbnail.thumbnails as any[]).map((t) => { });
+        (data.msg.videoDetails.thumbnail.thumbnails as any[]).map((t) => {});
         const thumbnails = data.msg.videoDetails.thumbnail
           .thumbnails as Thumbnails[];
 
@@ -150,12 +151,12 @@ export default function Page() {
               </label>
             </div>
 
-            <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">
+            {/* <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">
               <p>Query scene</p>
               <div className=" w-[34px] h-[34px] bg-black grid place-items-center rounded-full">
                 <img src="/Voice.svg" alt="speak" />
               </div>
-            </div>
+            </div> */}
 
             <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">
               <p>Take a note</p>
@@ -163,7 +164,32 @@ export default function Page() {
                 <img src="/Paper.svg" alt="note" />
               </div>
             </div>
+            <div className=" flex gap-4 items-center pr-4 border-r border-black py-1">
+              <p>Ask on forum</p>
+              <div
+                className=" w-[34px] h-[34px] bg-black grid place-items-center rounded-full cursor-pointer"
+                onClick={() => setAskForum(!askForum)}
+              >
+                <img src="/Globe.svg" alt="note" />
+              </div>
+            </div>
           </div>
+          {askForum && (
+            <div className=" w-full p-4 bg-[#2B2B30] rounded-lg flex flex-col gap-4 mb-20">
+              <input
+                type="text"
+                className=" bg-[#565660] p-2 rounded-lg focus:outline-none"
+                placeholder="Please input a topic of what you'll like to know"
+              />
+              <textarea
+                className=" bg-[#565660] p-2 rounded-lg focus:outline-none h-[140px] resize-none"
+                placeholder="Please provide more information on what you'll like to know"
+              />
+              <div className=" flex justify-end">
+                <button className=" py-3 px-5 bg-black rounded-lg">Upload</button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

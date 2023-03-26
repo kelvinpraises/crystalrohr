@@ -94,7 +94,7 @@ export default function Page() {
   return (
     <>
       <div className="  w-full p-4 pb-8 flex justify-center ">
-        <div className=" flex gap-4 mt-5 items-start">
+        <div className=" flex gap-4 mt-5 items-start w-max">
           <Link href={"/forum"} className=" pt-2">
             <img src="/arrowBack.svg" alt="go back" />
           </Link>

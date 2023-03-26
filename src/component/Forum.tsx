@@ -34,6 +34,13 @@ const Forum = (forum: IForumProps) => {
 
       {forum.answers &&
         forum.answers.map((data, i) => <Messages key={i} {...data} />)}
+
+      <div className=" fixed bg-[#2B2B30] p-4 max-w-[650px] w-full mr-4 rounded-lg flex flex-col gap-4 bottom-4 z-20 drop-shadow-[0_35px_7px_rgba(0,0,0,0.5)]">
+        <input type="text" className=" bg-[#565660] focus:outline-none p-2 rounded-lg" />
+        <div className=" flex justify-end">
+          <button className=" bg-black py-3 px-5 rounded-lg">Comment</button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -57,7 +64,9 @@ const Messages = (chat: IMessageProps) => (
       </div>
     ) : (
       <div className=" w-full max-w-[40px] md:max-w-[60px] md:h-[60px] h-[40px] overflow-hidden rounded-full bg-yellow-400 grid place-items-center">
-        <p className=" uppercase text-black text-lg">{chat.creator?.split("")[0]}</p>
+        <p className=" uppercase text-black text-lg">
+          {chat.creator?.split("")[0]}
+        </p>
       </div>
     )}
     <div className=" w-full flex flex-col p-4 bg-[#2B2B30] rounded-lg shadow-[0_0_50px_7px_rgba(0,0,0,0.05)]">
