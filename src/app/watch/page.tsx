@@ -84,9 +84,9 @@ export default function Page() {
       });
   }, [buttonRef.current, show, startCaption]);
 
-  if (!show) {
-    return null;
-  }
+  // if (!show) {
+  //   return null;
+  // }
 
   return (
     <>
@@ -132,18 +132,22 @@ export default function Page() {
 
                 <div className=" flex justify-center items-center relative w-full h-[405px] overflow-hidden cursor-pointer rounded-lg bg-red-100">
                   <video
-                crossOrigin="anonymous"
-                ref={videoRef}
-                height={405}
-                style={{ height: 405 }}
-                controls
-                preload="metadata"
-                poster={"https://web-production-44900.up.railway.app/" + poster}
-              >
-                <source
-                  src={"https://web-production-44900.up.railway.app/" + link}
-                />
-              </video>
+                    crossOrigin="anonymous"
+                    ref={videoRef}
+                    height={405}
+                    style={{ height: 405 }}
+                    controls
+                    preload="metadata"
+                    poster={
+                      "https://web-production-44900.up.railway.app/" + poster
+                    }
+                  >
+                    <source
+                      src={
+                        "https://web-production-44900.up.railway.app/" + link
+                      }
+                    />
+                  </video>
                 </div>
               </div>
 
@@ -152,13 +156,13 @@ export default function Page() {
                   <p>Auto Caption</p>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
-                  type="checkbox"
-                  defaultChecked={startCaption}
-                  onChange={() => setStartCaption((x) => !x)}
-                  id="autoCaption"
-                  name="Auto caption"
-                  className="sr-only peer"
-                />
+                      type="checkbox"
+                      defaultChecked={startCaption}
+                      onChange={() => setStartCaption((x) => !x)}
+                      id="autoCaption"
+                      name="Auto caption"
+                      className="sr-only peer"
+                    />
                     <div className="w-11 h-6 bg-black rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-700"></div>
                   </label>
                 </div>
