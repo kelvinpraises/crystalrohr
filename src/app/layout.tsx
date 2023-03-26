@@ -34,15 +34,22 @@ export default function RootLayout({
             <img src="/Crystalrorh.svg" alt="" />
           </Link>
 
-          <div>
-            {loggedIn ?
-              <LoginButton onClick={signOut}>
-                Logout
-              </LoginButton> :
+          {
+            loggedIn ?
+              <div className="flex gap-4">
+                <LoginButton onClick={signOut}>
+                  Logout
+                </LoginButton>
+
+                <LoginButton onClick>
+                  Profile
+                </LoginButton>
+              </div>
+              :
               <LoginButton onClick={signIn}>
                 Login
-              </LoginButton>}
-          </div>
+              </LoginButton>
+          }
         </Header>
         <div className=" mt-20 flex overflow-y-hidden">
           <>{children}</>
