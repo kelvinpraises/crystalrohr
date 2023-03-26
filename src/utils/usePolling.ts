@@ -37,5 +37,3 @@ export default function usePollingEffect(
 
   return [() => kill(true), () => kill(false)];
 }
-
-const [data, setData] = useState({});

@@ -71,7 +71,7 @@ export default function Page() {
           <div className=" flex flex-col gap-5 w-[650px]">
             <div className="flex gap-4 z-[1] items-center w-full">
               <p className=" font-imprima text-4xl text-white ">
-                Can anyone tell me what's going on in this video
+                Can anyone tell me whats going on in this video
               </p>
             </div>
             <div className=" flex justify-center w-full relative">
