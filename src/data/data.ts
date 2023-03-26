@@ -47,8 +47,6 @@ export const homeData = [
   },
 ];
 
-
-
 export const noteData = [
   {
     background: "bg-violet-500",
@@ -79,5 +77,368 @@ export const noteData = [
     title: "TechCruch all the way",
     note: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisciquis eveniet totam exercitationem amet consectetur facere in aliquidnecessitatibus reprehenderit.",
     date: "14th of march, 2023",
+  },
+];
+
+export const forumData = [
+  {
+    id: 1,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:""
+          // "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 2,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 3,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 4,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 5,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 6,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 7,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
+  },
+  {
+    id: 8,
+    topic: "How to learn Git and Github",
+    message:
+      "i need to know what exactly is going on in this scene, can anyone help?",
+
+    answers: [
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+      {
+        message: "this is the first message ohhhh i am tired as it is.",
+        creator: "daniel",
+        time: "march 12, 2023",
+        AvatarSource:
+          "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+      },
+    ],
+    awardedAnswer: {
+      message: "this is the first message ohhhh i am tired as it is.",
+      creator: "daniel",
+      time: "march 12, 2023",
+      AvatarSource:
+        "https://images.unsplash.com/flagged/photo-1567400358593-9e6382752ea2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YWJzdHJhY3R8fHx8fHwxNjc3ODY3MjE4&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+    },
+    date: "March 18, 2023",
   },
 ];
