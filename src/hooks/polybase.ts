@@ -20,13 +20,6 @@ export const usePolybase = () => {
   let email;
   let accountType;
 
-  auth?.onAuthUpdate((authState) => {
-    if (authState) {
-      setLogin(true)
-    } else {
-      setLogin(false)
-    }
-  })
 
   const signIn = async () => {
     if (!auth) return
@@ -69,5 +62,5 @@ export const usePolybase = () => {
     ]);
   }, [])
 
-  return { signIn, signOut, createUserRecord, createHistoryRecord }
+  return { signIn, signOut,loggedIn, createUserRecord, createHistoryRecord }
 }

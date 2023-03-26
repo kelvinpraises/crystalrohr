@@ -1,10 +1,10 @@
 "use client";
-import "../styles/globals.css";
-import { Inter, Imprima } from "next/font/google";
+import LoginButton from "@/component/button/LoginButton";
 import Header from "@/component/Header";
-import NavBar from "@/component/NavBar";
-import SearchModal from "@/component/modals/SearchModal";
-import { SetStateAction, useState } from "react";
+import { usePolybase } from "@/hooks/polybase";
+import { Imprima, Inter } from "next/font/google";
+import Link from "next/link";
+import "../styles/globals.css";
 
 const imprima = Imprima({
   subsets: ["latin"],
@@ -23,11 +23,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { signIn, signOut, loggedIn } = usePolybase()
+
   return (
     <html className={`${imprima.variable} ${inter.variable}`}>
       <head />
       <body className=" bg-[#020203] text-[#ededed]">
-        <Header />
+        <Header>
+          <Link href={"/"}>
+            <img src="/Crystalrorh.svg" alt="" />
+          </Link>
+
+          {loggedIn ?
+            <LoginButton onClick={signOut}>
+              Logout
+            </LoginButton> :
+            <LoginButton onClick={signIn}>
+              Login
+            </LoginButton>}
+        </Header>
         <div className=" mt-20 flex overflow-y-hidden">
           <>{children}</>
         </div>
