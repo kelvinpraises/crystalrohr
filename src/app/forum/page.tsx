@@ -70,9 +70,6 @@ const page = () => {
   return (
     <div className="flex flex-col items-center w-full">
       <div className=" w-[1080px] flex flex-col gap-4">
-        <div className=" bg-[#020203] fixed w-full">
-          <p className=" text-2xl font-semibold pb-3">Forum</p>
-        </div>
         <div className=" flex flex-col gap-5 mt-[60px]">
           {forumData.map((data, i) => (
             <ForumCard {...data} />
