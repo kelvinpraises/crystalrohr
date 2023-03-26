@@ -1,7 +1,7 @@
 import generateQuickGuid from "@/utils/generateQuickGuid";
+import { Auth } from '@polybase/auth';
 import { Polybase } from "@polybase/client";
-import { useCallback, useState } from "react";
-import { Auth } from '@polybase/auth'
+import { useCallback, useMemo, useState } from "react";
 
 const db = new Polybase({
   defaultNamespace: "pk/0xc0ccc35ddd223f3f873dcb7fb1cec7d511e361ac611fb407fbcd2b854bf99143193fc42715a91c18c65849f5eb99dfe0faa3b77870ae954e8bb7ae36c4585988/crystalrohr",
@@ -20,6 +20,16 @@ export const usePolybase = () => {
   let email;
   let accountType;
 
+
+  useMemo(() => {
+    auth?.onAuthUpdate((authState) => {
+      if (authState) {
+        setLogin(true)
+      } else {
+        setLogin(false)
+      }
+    })
+  }, [auth])
 
   const signIn = async () => {
     if (!auth) return
@@ -41,7 +51,7 @@ export const usePolybase = () => {
 
   const createUserRecord = useCallback(async () => {
     const randomId = generateQuickGuid() + "-" + Date.now()
-    const recordData = await historyReference.create([
+    const recordData = await userReference.create([
       randomId,
       "kelvin praises",
       "kelvinpraises@gmail.com",
@@ -62,5 +72,5 @@ export const usePolybase = () => {
     ]);
   }, [])
 
-  return { signIn, signOut,loggedIn, createUserRecord, createHistoryRecord }
+  return { signIn, signOut, loggedIn, createUserRecord, createHistoryRecord }
 }
