@@ -12,7 +12,11 @@ const imprima = Imprima({
   variable: "--font-imprima",
 });
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter"
+});
 
 export default function RootLayout({
   children,
@@ -20,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={`${imprima.variable} ${inter.className}`}>
+    <html className={`${imprima.variable} ${inter.variable}`}>
       <head />
       <body className=" bg-[#020203] text-[#ededed]">
         <Header />
