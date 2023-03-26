@@ -72,7 +72,7 @@ const page = () => {
       <div className=" w-[1080px] flex flex-col gap-4">
         <div className=" flex flex-col gap-5 mt-[60px]">
           {forumData.map((data, i) => (
-            <ForumCard {...data} />
+            <ForumCard key={i} {...data} />
           ))}
         </div>
       </div>
