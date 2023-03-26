@@ -42,7 +42,6 @@ export default function Page() {
         setLink(data.msg.streamingData.formats[0].url);
         setTitle(data.msg.videoDetails.title);
 
-        (data.msg.videoDetails.thumbnail.thumbnails as any[]).map((t) => { });
         const thumbnails = data.msg.videoDetails.thumbnail
           .thumbnails as Thumbnails[];
 

@@ -25,7 +25,7 @@ const VideoComment = () => {
       </div>
       <div className=" h-[375px] overflow-y-scroll pt-2 flex flex-col gap-3">
         {comment.map((data, i) => (
-          <div className=" flex gap-3">
+          <div key={i} className=" flex gap-3">
             <div className=" max-w-[25px] w-full h-[25px] bg-yellow-300 rounded-full grid place-items-center text-black">
               {data.initial}
             </div>

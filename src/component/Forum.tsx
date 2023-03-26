@@ -24,14 +24,14 @@ const Forum = () => {
     <div className=' w-full mt-6 flex flex-col gap-10'>
       <p className=' text-xl font-semibold'>Awarded</p>
       {
-        chatData.map((data, i)=>(
-          <Messages {...data} key={i} />
+        chatData.map((data, i) => (
+          <Messages key={i} {...data} />
         ))
       }
       <p className=' text-xl font-semibold mt-3'>Answers</p>
       {
-        chatData.map((data, i)=>(
-          <Messages {...data} key={i} />
+        chatData.map((data, i) => (
+          <Messages key={i} {...data} />
         ))
       }
     </div>
@@ -40,24 +40,24 @@ const Forum = () => {
 
 export default Forum
 
-const Messages = (chat: IMessageProps) =>(
+const Messages = (chat: IMessageProps) => (
   <div className=" flex w-full gap-4">
-  <div className=" w-full max-w-[70px] h-[70px] overflow-hidden rounded-full relative">
-    <Image
-      src={chat.avatar}
-      style={{
-        objectFit: "cover",
-        zIndex: 0,
-      }}
-      fill
-      priority
-      alt={`avatar of ${chat.name}`}
-    />
+    <div className=" w-full max-w-[70px] h-[70px] overflow-hidden rounded-full relative">
+      <Image
+        src={chat.avatar}
+        style={{
+          objectFit: "cover",
+          zIndex: 0,
+        }}
+        fill
+        priority
+        alt={`avatar of ${chat.name}`}
+      />
+    </div>
+    <div className=" w-full flex flex-col p-4 bg-[#2B2B30] rounded-lg shadow-[0_0_50px_7px_rgba(0,0,0,0.05)]">
+      <p className=" text-xl font-outfit font-medium">{chat.name}</p>
+      <p>{chat.message}</p>
+      <p className=" text-sm italic text-end">{chat.time}</p>
+    </div>
   </div>
-  <div className=" w-full flex flex-col p-4 bg-[#2B2B30] rounded-lg shadow-[0_0_50px_7px_rgba(0,0,0,0.05)]">
-    <p className=" text-xl font-outfit font-medium">{chat.name}</p>
-    <p>{chat.message}</p>
-    <p className=" text-sm italic text-end">{chat.time}</p>
-  </div>
-</div>
 )
