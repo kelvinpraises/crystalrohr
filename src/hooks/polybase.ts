@@ -23,6 +23,7 @@ export const usePolybase = () => {
     auth?.onAuthUpdate((authState) => {
       if (authState) {
         setLogin(true);
+        setUser(authState.userId);
       } else {
         setLogin(false);
       }
@@ -39,7 +40,18 @@ export const usePolybase = () => {
         sig: await auth.ethPersonalSign(data),
       };
     });
-    console.log("signIn", res);
+
+    if (!res?.userId) return auth.signOut();
+
+    await userReference.create([
+      res?.userId,
+      "", // name
+      res?.email || "",
+      "user",
+      Date.now(),
+    ]);
+
+    setUser(res?.userId);
   };
 
   const signOut = async () => {
@@ -84,26 +96,79 @@ export const usePolybase = () => {
     []
   );
 
-  const createNotesRecord = useCallback(async () => {
-    const randomId = generateQuickGuid() + "-" + Date.now();
-    const recordData = await historyReference.create([
-      randomId,
-      "video",
-      Date.now(),
-    ]);
-  }, []);
+  const createNotesRecord = useCallback(
+    async ({ title, body }: { title: string; body: string }) => {
+      const randomId = generateQuickGuid() + "-" + Date.now();
+      noteReference.create([randomId, title, body, Date.now()]).then(() => {
+        userReference.record(user).call("setNoteId", [randomId, Date.now()]);
+      });
+    },
+    []
+  );
 
-  const createForumRecord = useCallback(async () => {
-    const randomId = generateQuickGuid() + "-" + Date.now();
-    const recordData = await historyReference.create([
-      randomId,
-      "video",
-      Date.now(),
-    ]);
+  const createForumRecord = useCallback(
+    async ({
+      title,
+      body,
+      mediaUrl,
+    }: {
+      title: string;
+      body: string;
+      mediaUrl: string;
+    }) => {
+      const randomId = generateQuickGuid() + "-" + Date.now();
+      await historyReference
+        .create([randomId, title, body, mediaUrl, Date.now()])
+        .then(() => {
+          userReference
+            .record(user)
+            .call("setForumPost", [randomId, Date.now()]);
+        });
+    },
+    []
+  );
+
+  const getUserRecord = useCallback(async () => {
+    return userReference.record(user).get();
   }, []);
 
   const getHistoryRecord = useCallback(async () => {
-    // read user and get the ids from tehre with map
+    const { historyId } = (await userReference.record(user).get()) as any;
+    const data = (historyId as any[]).map(
+      async (id) => await historyReference.record(id).get()
+    );
+    return await Promise.all(data);
   }, []);
-  return { signIn, signOut, loggedIn, createUserRecord, createHistoryRecord };
+
+  const getNotesRecord = useCallback(async () => {
+    const { notesId } = (await userReference.record(user).get()) as any;
+    const data = (notesId as any[]).map(
+      async (id) => await noteReference.record(id).get()
+    );
+    return await Promise.all(data);
+  }, []);
+
+  const getForumsRecord = useCallback(async () => {
+    const { forumPostsId } = (await userReference.record(user).get()) as any;
+    const data = (forumPostsId as any[]).map(
+      async (id) => await historyReference.record(id).get()
+    );
+    return await Promise.all(data);
+  }, []);
+
+  return {
+    signIn,
+    signOut,
+    loggedIn,
+
+    createUserRecord,
+    createHistoryRecord,
+    createNotesRecord,
+    createForumRecord,
+
+    getUserRecord,
+    getHistoryRecord,
+    getNotesRecord,
+    getForumsRecord,
+  };
 };
