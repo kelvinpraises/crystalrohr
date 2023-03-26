@@ -1,76 +1,109 @@
 import generateQuickGuid from "@/utils/generateQuickGuid";
-import { Auth } from '@polybase/auth';
+import { Auth } from "@polybase/auth";
 import { Polybase } from "@polybase/client";
 import { useCallback, useMemo, useState } from "react";
 
 const db = new Polybase({
-  defaultNamespace: "pk/0xc0ccc35ddd223f3f873dcb7fb1cec7d511e361ac611fb407fbcd2b854bf99143193fc42715a91c18c65849f5eb99dfe0faa3b77870ae954e8bb7ae36c4585988/crystalrohr",
+  defaultNamespace:
+    "pk/0xc0ccc35ddd223f3f873dcb7fb1cec7d511e361ac611fb407fbcd2b854bf99143193fc42715a91c18c65849f5eb99dfe0faa3b77870ae954e8bb7ae36c4585988/crystalrohr",
 });
 
 const auth = typeof window !== "undefined" ? new Auth() : null;
 
 const userReference = db.collection("User");
 const historyReference = db.collection("History");
-
+const noteReference = db.collection("Note");
+const forumPostReference = db.collection("ForumPost");
 
 export const usePolybase = () => {
-  const [loggedIn, setLogin] = useState(false)
-  let id;
-  let username;
-  let email;
-  let accountType;
-
+  const [loggedIn, setLogin] = useState(false);
+  const [user, setUser] = useState<any>();
 
   useMemo(() => {
     auth?.onAuthUpdate((authState) => {
       if (authState) {
-        setLogin(true)
+        setLogin(true);
       } else {
-        setLogin(false)
+        setLogin(false);
       }
-    })
-  }, [auth])
+    });
+  }, [auth]);
 
   const signIn = async () => {
-    if (!auth) return
+    if (!auth) return;
     const res = await auth.signIn({ force: true });
     db.signer(async (data) => {
       console.log(data);
       return {
         h: "eth-personal-sign",
-        sig: await auth.ethPersonalSign(data)
+        sig: await auth.ethPersonalSign(data),
       };
     });
     console.log("signIn", res);
-  }
+  };
 
   const signOut = async () => {
-    if (!auth) return
-    await auth.signOut()
-  }
+    if (!auth) return;
+    await auth.signOut();
+  };
 
-  const createUserRecord = useCallback(async () => {
-    const randomId = generateQuickGuid() + "-" + Date.now()
-    const recordData = await userReference.create([
-      randomId,
-      "kelvin praises",
-      "kelvinpraises@gmail.com",
-      "user",
-      Date.now()
-    ]);
+  const createUserRecord = useCallback(
+    async ({
+      id,
+      name,
+      email,
+    }: {
+      id: string;
+      name: string;
+      email: string;
+    }) => {
+      await userReference.create([id, name, email, "user", Date.now()]);
+    },
+    []
+  );
 
-    console.log(recordData)
-  }, [])
+  const createHistoryRecord = useCallback(
+    async ({
+      title,
+      channel,
+      imageUrl,
+    }: {
+      title: string;
+      channel: string;
+      imageUrl: string;
+    }) => {
+      const randomId = generateQuickGuid() + "-" + Date.now();
+      historyReference
+        .create([randomId, title, channel, imageUrl, Date.now()])
+        .then(() => {
+          userReference
+            .record(user)
+            .call("setHistoryId", [randomId, Date.now()]);
+        });
+    },
+    []
+  );
 
-  const createHistoryRecord = useCallback(async () => {
-    const randomId = generateQuickGuid()
-
+  const createNotesRecord = useCallback(async () => {
+    const randomId = generateQuickGuid() + "-" + Date.now();
     const recordData = await historyReference.create([
       randomId,
       "video",
-      Date.now()
+      Date.now(),
     ]);
-  }, [])
+  }, []);
 
-  return { signIn, signOut, loggedIn, createUserRecord, createHistoryRecord }
-}
+  const createForumRecord = useCallback(async () => {
+    const randomId = generateQuickGuid() + "-" + Date.now();
+    const recordData = await historyReference.create([
+      randomId,
+      "video",
+      Date.now(),
+    ]);
+  }, []);
+
+  const getHistoryRecord = useCallback(async () => {
+    // read user and get the ids from tehre with map
+  }, []);
+  return { signIn, signOut, loggedIn, createUserRecord, createHistoryRecord };
+};
