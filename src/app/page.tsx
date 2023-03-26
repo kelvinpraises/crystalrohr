@@ -1,4 +1,5 @@
 "use client";
+import { usePolybase } from "@/hooks/polybase";
 import { useStore } from "@/store/useStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,8 @@ export default function Home() {
   const youTubeLink = useStore((state) => state.youTubeLink);
   const setYouTubeLink = useStore((state) => state.setYouTubeLink);
   const setYouTubeId = useStore((state) => state.setYouTubeId);
+
+  const { createUserRecord } = usePolybase()
 
   const router = useRouter();
 
@@ -45,6 +48,7 @@ export default function Home() {
   return (
     <div className="  w-full h-[calc(100vh-5rem)] overflow-y-scroll flex flex-col items-center">
       <div className=" w-[650px] flex flex-col gap-12 mt-5 items-center">
+        <button onClick={async () => await createUserRecord()}>create account</button>
         <p className=" font-imprima text-4xl text-white">
           Auto Caption YouTube Videos
         </p>

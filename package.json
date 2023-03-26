@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@polybase/auth": "^0.3.38",
+    "@polybase/client": "^0.3.38",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
