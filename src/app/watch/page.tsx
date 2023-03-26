@@ -1,9 +1,9 @@
 "use client";
-import useCanvas from "@/hooks/useCanvas";
+import useCaption from "@/hooks/useCaption";
 import { useStore } from "@/store/useStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function Page() {
   const [startCaption, setStartCaption] = useState(true);
 
   const { videoRef, slicedRef, canvasRef, canvasRef2, killPoll, respawnPoll } =
-    useCanvas();
+    useCaption();
 
   useEffect(() => {
     if (youTubeId) return;
@@ -55,7 +55,7 @@ export default function Page() {
         setLink(data.msg.streamingData.formats[0].url);
         setTitle(data.msg.videoDetails.title);
 
-        (data.msg.videoDetails.thumbnail.thumbnails as any[]).map((t) => {});
+        (data.msg.videoDetails.thumbnail.thumbnails as any[]).map((t) => { });
         const thumbnails = data.msg.videoDetails.thumbnail
           .thumbnails as Thumbnails[];
 

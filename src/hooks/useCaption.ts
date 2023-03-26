@@ -2,10 +2,10 @@ import dataURIToBlob from "@/utils/dataURIToBlob";
 import generateQuickGuid from "@/utils/generateQuickGuid";
 import usePollingEffect from "@/utils/usePollingEffect";
 import useStateCallback from "@/utils/useStateCallback";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Colour } from "../utils/colors";
 
-const useCanvas = () => {
+const useCaption = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const slicedRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -184,7 +184,7 @@ const useCanvas = () => {
         if (!data.status) return;
 
         let bodyContent = JSON.stringify({
-          imageUrl: data.msg.cid + ".ipfs.w3s.link",
+          imageUrl: "https://" + data.msg.cid + ".ipfs.w3s.link",
         });
 
         setAudioState(
@@ -242,11 +242,11 @@ const useCanvas = () => {
     [],
     {
       interval: 1000,
-      onCleanUp: () => {},
+      onCleanUp: () => { },
     }
   );
 
   return { videoRef, slicedRef, canvasRef, canvasRef2, killPoll, respawnPoll };
 };
 
-export default useCanvas;
+export default useCaption;
